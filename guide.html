@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="fantasy">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeryNite Tracker</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/3.7.3/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap");
+
+      body {
+        font-family: "Rajdhani", sans-serif;
+        background-image: url("/api/placeholder/1920/1080");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      .glass-card {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-container {
+        transition: all 0.3s ease;
+      }
+
+      .stat-container:hover {
+        transform: translateY(-5px);
+      }
+
+      .game-mode-tabs .tab {
+        margin-bottom: -2px;
+      }
+
+      .favorite-button {
+        transition: all 0.2s ease;
+      }
+
+      .favorite-button:hover {
+        transform: scale(1.05);
+      }
+
+      .profile-header {
+        background: linear-gradient(
+          90deg,
+          rgba(69, 10, 245, 0.8) 0%,
+          rgba(143, 23, 255, 0.8) 100%
+        );
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <!-- Header Section -->
+      <div class="text-center mb-10">
+        <h1 class="text-5xl font-bold mb-2 text-primary-content">
+          <span class="text-primary">Nery</span
+          ><span class="text-accent">Nite</span> Tracker
+        </h1>
+        <p class="text-lg opacity-70 text-base-content">
+          Estadísticas de Fortnite con un diseño moderno
+        </p>
+      </div>
+
+      <!-- Search Section -->
+      <div class="card bg-base-100 shadow-xl mb-8">
+        <div class="card-body p-6">
+          <h2 class="card-title text-xl mb-4">Buscar Jugador</h2>
+          <div class="join w-full">
+            <input
+              class="input input-bordered join-item flex-1"
+              placeholder="Introduce nombre de usuario..."
+              value="Neryad01"
+            />
+            <button class="btn btn-primary join-item">Buscar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="card bg-base-100 shadow-xl mb-8 overflow-hidden">
+        <div class="profile-header p-6 text-white">
+          <div class="flex justify-between items-center flex-wrap gap-4">
+            <div>
+              <h2 class="text-3xl font-bold">Neryad01</h2>
+              <p class="opacity-80">ID: 0baea926ea504b26969ffdcdaa7be05a</p>
+            </div>
+
+            <button class="btn btn-sm btn-warning gap-2 favorite-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.799-2.034c-.784-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              Favorito
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body p-6 pt-0">
+          <!-- Battle Pass Progress -->
+          <div class="bg-base-200 p-4 rounded-lg mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="font-bold">Battle Pass</h3>
+              <span class="badge badge-primary">Nivel 155</span>
+            </div>
+            <progress
+              class="progress progress-primary w-full"
+              value="100"
+              max="100"
+            ></progress>
+            <div class="text-right text-xs opacity-70 mt-1">
+              Última actualización: 17/04/2025
+            </div>
+          </div>
+
+          <!-- Tabs for Game Modes -->
+          <div class="tabs game-mode-tabs mb-6 overflow-x-auto">
+            <a class="tab tab-bordered tab-active">General</a>
+            <a class="tab tab-bordered">Solo</a>
+            <a class="tab tab-bordered">Duos</a>
+            <a class="tab tab-bordered">Escuadrones</a>
+            <a class="tab tab-bordered">LTM</a>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Victories -->
+            <div
+              class="stat-container card bg-base-200 hover:shadow-lg transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="text-lg font-semibold opacity-70">Victorias</h3>
+                <div class="text-4xl font-bold text-primary">252</div>
+                <div class="mt-2">
+                  <div class="flex justify-between mb-1">
+                    <span>Win Rate</span>
+                    <span>9.03%</span>
+                  </div>
+                  <progress
+                    class="progress progress-primary w-full"
+                    value="9"
+                    max="100"
+                  ></progress>
+                </div>
+              </div>
+            </div>
+
+            <!-- K/D Ratio -->
+            <div
+              class="stat-container card bg-base-200 hover:shadow-lg transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="text-lg font-semibold opacity-70">K/D Ratio</h3>
+                <div class="text-4xl font-bold text-secondary">2.94</div>
+                <div class="stats stats-vertical shadow mt-2 bg-transparent">
+                  <div class="stat py-1 px-0">
+                    <div class="stat-title">Eliminaciones</div>
+                    <div class="stat-value text-lg">7,472</div>
+                  </div>
+                  <div class="stat py-1 px-0">
+                    <div class="stat-title">Muertes</div>
+                    <div class="stat-value text-lg">2,539</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Matches -->
+            <div
+              class="stat-container card bg-base-200 hover:shadow-lg transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="text-lg font-semibold opacity-70">Partidas</h3>
+                <div class="text-4xl font-bold text-accent">2,791</div>
+                <div class="stats stats-vertical shadow mt-2 bg-transparent">
+                  <div class="stat py-1 px-0">
+                    <div class="stat-title">Tiempo jugado</div>
+                    <div class="stat-value text-lg">517h 15m</div>
+                  </div>
+                  <div class="stat py-1 px-0">
+                    <div class="stat-title">Score/Partida</div>
+                    <div class="stat-value text-lg">290.32</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Positions -->
+            <div
+              class="stat-container card bg-base-200 hover:shadow-lg transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="text-lg font-semibold opacity-70">Top Posiciones</h3>
+                <div class="flex items-end gap-2">
+                  <div class="text-4xl font-bold text-info">604</div>
+                  <div class="opacity-70">Top 3</div>
+                </div>
+                <div class="flex justify-between mt-4">
+                  <div class="badge badge-lg">Top 10: 83</div>
+                  <div class="badge badge-lg">Top 25: 163</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Total Score -->
+            <div
+              class="stat-container card bg-base-200 hover:shadow-lg transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="text-lg font-semibold opacity-70">Score Total</h3>
+                <div class="text-4xl font-bold text-success">810,294</div>
+                <div class="divider my-2"></div>
+                <div class="flex justify-between text-sm">
+                  <div>Score/Min: <span class="font-bold">26.11</span></div>
+                  <div>
+                    Players Outlived: <span class="font-bold">165,510</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Devices -->
+            <div
+              class="stat-container card bg-base-200 hover:shadow-lg transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="text-lg font-semibold opacity-70">Dispositivos</h3>
+                <div class="overflow-x-auto">
+                  <table class="table table-zebra table-sm">
+                    <tbody>
+                      <tr>
+                        <td>Mando</td>
+                        <td class="text-right font-bold">163 victorias</td>
+                      </tr>
+                      <tr>
+                        <td>Teclado</td>
+                        <td class="text-right font-bold">89 victorias</td>
+                      </tr>
+                      <tr>
+                        <td>Táctil</td>
+                        <td class="text-right font-bold">0 victorias</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Favorites Section -->
+      <div class="card bg-base-100 shadow-xl mb-8">
+        <div class="card-body p-6">
+          <h2 class="card-title text-xl mb-4">Jugadores Favoritos</h2>
+          <div class="flex flex-wrap gap-4">
+            <!-- Saved Favorite -->
+            <div
+              class="card bg-base-200 w-48 shadow-lg hover:shadow-xl transition-all"
+            >
+              <div class="card-body p-4">
+                <h3 class="card-title text-md">Neryad01</h3>
+                <p>Victorias: 252</p>
+                <p>K/D: 2.94</p>
+                <div class="card-actions justify-end mt-2">
+                  <button class="btn btn-sm btn-primary w-full">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add New Favorite -->
+            <div
+              class="card bg-base-200 w-48 shadow-lg hover:shadow-xl transition-all"
+            >
+              <div class="card-body p-4 flex items-center justify-center">
+                <button class="btn btn-ghost btn-circle btn-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-10 w-10"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                </button>
+                <p class="text-center mt-2">Añadir nuevo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-center opacity-70 mt-10 text-base-content">
+        <p>NeryNite Tracker © 2025 | Datos actualizados: 18/04/2025</p>
+      </footer>
+    </div>
+  </body>
+</html>
