@@ -2,7 +2,6 @@
 
 ![NeryNite Tracker](https://github.com/user-attachments/assets/eb8b0c11-1d3f-46ff-833c-78a51e269bed)
 
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2f3aff6d-e4e1-4ffe-9dbf-251443cd3530/deploy-status)](https://app.netlify.com/sites/nerynite/deploys)
 
 ## 📊 About NeryNite Tracker
@@ -10,6 +9,8 @@
 NeryNite Tracker is a retro-styled web application that allows you to check player statistics for Fortnite. With its pixel-perfect UI, it provides a nostalgic yet functional experience for tracking game stats.
 
 **[Try it now! →](https://nerynite.netlify.app/)**
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M31DTPAL)
 
 ## ✨ Features
 
@@ -87,4 +88,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.MD) f
 
 ---
 
-Made with ❤️ and React by Neryad
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M31DTPAL)

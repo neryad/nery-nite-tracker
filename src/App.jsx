@@ -774,6 +774,19 @@ function App() {
             Repo
           </a>
         </div>
+        <div className="mt-4">
+          <Button
+            bg="yellow"
+            textColor="black"
+            borderColor="black"
+            shadow="black"
+            className="btn btn-sm"
+            onClick={() => window.open("https://ko-fi.com/neryad", "_blank")}
+          >
+            <span className="mr-2">☕</span>
+            Apoya este proyecto
+          </Button>
+        </div>
         <div className="mt-2">
           <p>Versión 0.1.0</p>
         </div>
