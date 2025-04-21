@@ -1,8 +1,9 @@
 # 🎮 NeryNite Tracker
 
-![NeryNite Tracker](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2RzZXU0bGlrZ3Q5ZzM1Z2k4eDJweGN2bGFzMTk3a3YzZGVja2xrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uFLjWRH3WsWM7eTfxZ/giphy.gif)
+![NeryNite Tracker](https://github.com/user-attachments/assets/eb8b0c11-1d3f-46ff-833c-78a51e269bed)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-id/deploy-status)](https://nerynite.netlify.app/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2f3aff6d-e4e1-4ffe-9dbf-251443cd3530/deploy-status)](https://app.netlify.com/sites/nerynite/deploys)
 
 ## 📊 About NeryNite Tracker
 
