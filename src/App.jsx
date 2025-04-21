@@ -767,7 +767,7 @@ function App() {
             Youtube
           </a>
           <a
-            href="https://www.instagram.com/neryad"
+            href="https://github.com/neryad/nery-nite-tracker.git"
             target="_blank"
             className="text-pink-500 hover:text-pink-700"
           >
