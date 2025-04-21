@@ -700,7 +700,8 @@ function App() {
                           <td>Mando</td>
                           <td className="text-right font-bold">
                             {" "}
-                            {data?.data?.stats.gamepad.overall.wins || "0"}{" "}
+                            {data?.data?.stats?.gamepad?.overall?.wins ||
+                              "0"}{" "}
                             victorias
                           </td>
                         </tr>
