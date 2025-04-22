@@ -8,3 +8,36 @@ createRoot(document.getElementById("root")).render(
     <App />
   </StrictMode>
 );
+// Registro del service worker (si usas el plugin no siempre es necesario)
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js");
+  });
+}
+
+// Código para gestionar la instalación de la PWA
+let deferredPrompt;
+window.addEventListener("beforeinstallprompt", (e) => {
+  // Previene que Chrome muestre la instalación automáticamente
+  e.preventDefault();
+  // Guarda el evento para usarlo después
+  deferredPrompt = e;
+  // Muestra tu propio botón de instalación
+  const installButton = document.getElementById("install-button");
+  if (installButton) {
+    installButton.style.display = "block";
+
+    installButton.addEventListener("click", () => {
+      // Muestra el prompt de instalación
+      deferredPrompt.prompt();
+      // Espera a que el usuario responda al prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("Usuario aceptó la instalación");
+        }
+        // Limpia la referencia
+        deferredPrompt = null;
+      });
+    });
+  }
+});
