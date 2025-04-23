@@ -788,7 +788,7 @@ function App() {
           </Button>
         </div>
         <div className="mt-2">
-          <p>Versión 0.1.0</p>
+          <p>Versión 0.1.1</p>
         </div>
         <div className="mt-2 text-sm text-gray-600">
           <p>Hecho con ❤️ y react por Neryad</p>

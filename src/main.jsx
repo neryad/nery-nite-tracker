@@ -8,12 +8,6 @@ createRoot(document.getElementById("root")).render(
     <App />
   </StrictMode>
 );
-// Registro del service worker (si usas el plugin no siempre es necesario)
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js");
-  });
-}
 
 // Código para gestionar la instalación de la PWA
 let deferredPrompt;
