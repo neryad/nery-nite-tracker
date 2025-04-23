@@ -34,10 +34,10 @@ NeryNite Tracker is a retro-styled web application that allows you to check play
 
 ## 🚀 Upcoming Features
 
-This is version 0.1.0, and we're just getting started! Here's what's coming soon:
+This is version 0.1.1, and we're just getting started! Here's what's coming soon:
 
 - ⭐ **Favorites System**: Save your favorite players for quick access
-- 📱 **PWA Integration**: Install NeryNite Tracker as a native app
+- 📱 **PWA Integration**: Install NeryNite Tracker as a native app -
 - 📊 **Enhanced Player Stats**: More detailed performance analytics
 - 📄 **Match History**: View recent match details and outcomes
 - 🌙 **Dark Mode**: For those late-night gaming sessions
