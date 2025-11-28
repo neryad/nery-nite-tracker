@@ -40,7 +40,54 @@ function App() {
       }
     };
   }, []);
+  // Load favorites from localStorage on component mount
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = localStorage.getItem('fortnite-favorites');
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
 
+  // Save favorites to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('fortnite-favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  // Function to add current player to favorites
+  const addToFavorites = () => {
+    if (!data || !accountInfo) {
+      alert('No hay datos de jugador para agregar a favoritos');
+      return;
+    }
+
+    // Check if already in favorites
+    const alreadyFavorite = favorites.some(fav => fav.name === accountInfo.name);
+    if (alreadyFavorite) {
+      alert('Este jugador ya está en tus favoritos');
+      return;
+    }
+
+    const newFavorite = {
+      id: Date.now(), // Use timestamp as unique ID
+      name: accountInfo.name,
+      wins: stats?.wins || 0,
+      kd: stats?.kd || 0,
+      level: battlePass?.level || 0
+    };
+
+    setFavorites([...favorites, newFavorite]);
+    alert(`${accountInfo.name} agregado a favoritos!`);
+  };
+
+  // Function to remove a favorite
+  const removeFavorite = (e, id) => {
+    e.stopPropagation(); // Prevent triggering loadFavorite
+    setFavorites(favorites.filter(fav => fav.id !== id));
+  };
+
+  // Function to load a favorite player's data
+  const loadFavorite = (playerName) => {
+    setUsername(playerName);
+    fetchPlayerData(playerName);
+  };
   const fetchPlayerData = (playerName) => {
     setLoading(true);
     setHasSearched(true);
@@ -246,6 +293,59 @@ function App() {
           </div>
         </div>
       </Card> */}
+      {favorites.length > 0 && (
+        <Card className="card bg-base-100 shadow-xl mb-6">
+          <div className="card-body p-6">
+            <h2 className="card-title text-xl mb-4">
+              <span>⭐ Jugadores Favoritos</span>
+              <span className="badge badge-primary ml-2">
+                {favorites.length}
+              </span>
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {favorites.map((fav) => (
+                <Card
+                  key={fav.id}
+                  className="card bg-base-200 hover:shadow-lg cursor-pointer transition-all"
+                  onClick={() => loadFavorite(fav.name)}
+                >
+                  <div className="card-body p-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="font-bold text-lg">{fav.name}</h3>
+                      <Button
+                        bg="red"
+                        textColor="white"
+                        borderColor="black"
+                        shadow="black"
+                        className="btn btn-sm btn-square"
+                        onClick={(e) => removeFavorite(e, fav.id)}
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                    <div className="text-sm opacity-80 mt-1">
+                      <div>
+                        Victorias: <span className="font-bold">{fav.wins}</span>
+                      </div>
+                      <div>
+                        K/D:{" "}
+                        <span className="font-bold">
+                          {typeof fav.kd === "number"
+                            ? fav.kd.toFixed(2)
+                            : fav.kd}
+                        </span>
+                      </div>
+                      <div>
+                        Nivel BP: <span className="font-bold">{fav.level}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </Card>
+      )}
       {loading && hasSearched ? (
         <Card className="card bg-base-100 shadow-xl mb-8">
           <div className="card-body p-6 text-center">
@@ -520,7 +620,10 @@ function App() {
                 <p className="opacity-80">ID: {accountInfo?.id || "N/A"}</p>
               </div>
 
-              <Button className="btn btn-sm btn-warning gap-2 favorite-button">
+              <Button 
+                className="btn btn-sm btn-warning gap-2 favorite-button"
+                onClick={addToFavorites}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
