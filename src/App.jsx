@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import reactLogo from "./assets/react.svg";
 import neryTrackerLogo from "./assets/logo.png";
 import viteLogo from "/vite.svg";
+import PlayerComparison from "./PlayerComparison";
 
 import { Button, Input, Card, ProgressBar } from "pixel-retroui";
 function App() {
@@ -19,6 +20,11 @@ function App() {
   const [username, setUsername] = useState("");
   const progressIntervalRef = useRef(null);
   const [hasSearched, setHasSearched] = useState(false);
+  
+  // Comparison mode states
+  const [comparisonMode, setComparisonMode] = useState(false);
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [showComparison, setShowComparison] = useState(false);
   function escalarValor(value, originalMax, newMax) {
     return (value / originalMax) * newMax;
   }
@@ -87,6 +93,34 @@ function App() {
   const loadFavorite = (playerName) => {
     setUsername(playerName);
     fetchPlayerData(playerName);
+  };
+
+  // Toggle comparison mode
+  const toggleComparisonMode = () => {
+    setComparisonMode(!comparisonMode);
+    setSelectedPlayers([]);
+  };
+
+  // Handle player selection for comparison
+  const togglePlayerSelection = (player) => {
+    if (selectedPlayers.find(p => p.id === player.id)) {
+      setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
+    } else {
+      if (selectedPlayers.length < 3) {
+        setSelectedPlayers([...selectedPlayers, player]);
+      } else {
+        alert('Máximo 3 jugadores para comparar');
+      }
+    }
+  };
+
+  // Start comparison
+  const startComparison = () => {
+    if (selectedPlayers.length < 2) {
+      alert('Selecciona al menos 2 jugadores para comparar');
+      return;
+    }
+    setShowComparison(true);
   };
   const fetchPlayerData = (playerName) => {
     setLoading(true);
@@ -296,52 +330,118 @@ function App() {
       {favorites.length > 0 && (
         <Card className="card bg-base-100 shadow-xl mb-6">
           <div className="card-body p-6">
-            <h2 className="card-title text-xl mb-4">
-              <span>⭐ Jugadores Favoritos</span>
-              <span className="badge badge-primary ml-2">
-                {favorites.length}
-              </span>
-            </h2>
+            <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
+              <h2 className="card-title text-xl">
+                <span>⭐ Jugadores Favoritos</span>
+                <span className="badge badge-primary ml-2">
+                  {favorites.length}
+                </span>
+              </h2>
+              <div className="flex gap-2">
+                {!comparisonMode && favorites.length >= 2 && (
+                  <Button
+                    bg="purple"
+                    textColor="white"
+                    borderColor="black"
+                    shadow="black"
+                    className="btn btn-sm"
+                    onClick={toggleComparisonMode}
+                  >
+                    ⚔️ Modo Comparar
+                  </Button>
+                )}
+                {comparisonMode && (
+                  <>
+                    <Button
+                      bg="green"
+                      textColor="white"
+                      borderColor="black"
+                      shadow="black"
+                      className="btn btn-sm"
+                      onClick={startComparison}
+                      disabled={selectedPlayers.length < 2}
+                    >
+                      ✓ Comparar ({selectedPlayers.length})
+                    </Button>
+                    <Button
+                      bg="gray"
+                      textColor="white"
+                      borderColor="black"
+                      shadow="black"
+                      className="btn btn-sm"
+                      onClick={toggleComparisonMode}
+                    >
+                      ✕ Cancelar
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+            {comparisonMode && (
+              <div className="alert alert-info mb-4">
+                <span>
+                  📌 Selecciona entre 2 y 3 jugadores para comparar sus estadísticas
+                </span>
+              </div>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {favorites.map((fav) => (
-                <Card
-                  key={fav.id}
-                  className="card bg-base-200 hover:shadow-lg cursor-pointer transition-all"
-                  onClick={() => loadFavorite(fav.name)}
-                >
-                  <div className="card-body p-4">
-                    <div className="flex justify-between items-center">
-                      <h3 className="font-bold text-lg">{fav.name}</h3>
-                      <Button
-                        bg="red"
-                        textColor="white"
-                        borderColor="black"
-                        shadow="black"
-                        className="btn btn-sm btn-square"
-                        onClick={(e) => removeFavorite(e, fav.id)}
-                      >
-                        ✕
-                      </Button>
+              {favorites.map((fav) => {
+                const isSelected = selectedPlayers.find(p => p.id === fav.id);
+                return (
+                  <Card
+                    key={fav.id}
+                    className={`card bg-base-200 hover:shadow-lg transition-all ${
+                      comparisonMode ? 'cursor-pointer' : ''
+                    } ${isSelected ? 'ring-4 ring-purple-500' : ''}`}
+                    onClick={() => comparisonMode ? togglePlayerSelection(fav) : loadFavorite(fav.name)}
+                  >
+                    <div className="card-body p-4">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2">
+                          {comparisonMode && (
+                            <input
+                              type="checkbox"
+                              className="checkbox checkbox-primary"
+                              checked={!!isSelected}
+                              onChange={() => togglePlayerSelection(fav)}
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          )}
+                          <h3 className="font-bold text-lg">{fav.name}</h3>
+                        </div>
+                        {!comparisonMode && (
+                          <Button
+                            bg="red"
+                            textColor="white"
+                            borderColor="black"
+                            shadow="black"
+                            className="btn btn-sm btn-square"
+                            onClick={(e) => removeFavorite(e, fav.id)}
+                          >
+                            ✕
+                          </Button>
+                        )}
+                      </div>
+                      <div className="text-sm opacity-80 mt-1">
+                        <div>
+                          Victorias: <span className="font-bold">{fav.wins}</span>
+                        </div>
+                        <div>
+                          K/D:{" "}
+                          <span className="font-bold">
+                            {typeof fav.kd === "number"
+                              ? fav.kd.toFixed(2)
+                              : fav.kd}
+                          </span>
+                        </div>
+                        <div>
+                          Nivel BP: <span className="font-bold">{fav.level}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm opacity-80 mt-1">
-                      <div>
-                        Victorias: <span className="font-bold">{fav.wins}</span>
-                      </div>
-                      <div>
-                        K/D:{" "}
-                        <span className="font-bold">
-                          {typeof fav.kd === "number"
-                            ? fav.kd.toFixed(2)
-                            : fav.kd}
-                        </span>
-                      </div>
-                      <div>
-                        Nivel BP: <span className="font-bold">{fav.level}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </Card>
@@ -897,6 +997,18 @@ function App() {
           <p>Hecho con ❤️ y react por Neryad</p>
         </div>
       </footer>
+
+      {/* Player Comparison Modal */}
+      {showComparison && (
+        <PlayerComparison
+          players={selectedPlayers}
+          onClose={() => {
+            setShowComparison(false);
+            setComparisonMode(false);
+            setSelectedPlayers([]);
+          }}
+        />
+      )}
     </>
   );
 }
