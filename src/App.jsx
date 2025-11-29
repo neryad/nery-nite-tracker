@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import neryTrackerLogo from "./assets/logo.png";
 import viteLogo from "/vite.svg";
 import PlayerComparison from "./PlayerComparison";
+import ShareModal from "./ShareModal";
 
 import { Button, Input, Card, ProgressBar } from "pixel-retroui";
 function App() {
@@ -25,6 +26,9 @@ function App() {
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [showComparison, setShowComparison] = useState(false);
+  
+  // Share modal state
+  const [showShareModal, setShowShareModal] = useState(false);
   function escalarValor(value, originalMax, newMax) {
     return (value / originalMax) * newMax;
   }
@@ -40,6 +44,14 @@ function App() {
   );
 
   useEffect(() => {
+    // Check for player param in URL
+    const params = new URLSearchParams(window.location.search);
+    const playerParam = params.get("player");
+    if (playerParam) {
+      setUsername(playerParam);
+      fetchPlayerData(playerParam);
+    }
+
     return () => {
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
@@ -720,20 +732,28 @@ function App() {
                 <p className="opacity-80">ID: {accountInfo?.id || "N/A"}</p>
               </div>
 
-              <Button 
-                className="btn btn-sm btn-warning gap-2 favorite-button"
-                onClick={addToFavorites}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+              <div className="flex gap-2">
+                <Button 
+                  className="btn btn-sm btn-info gap-2"
+                  onClick={() => setShowShareModal(true)}
                 >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.799-2.034c-.784-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                Favorito
-              </Button>
+                  📤 Compartir
+                </Button>
+                <Button 
+                  className="btn btn-sm btn-warning gap-2 favorite-button"
+                  onClick={addToFavorites}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.799-2.034c-.784-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  Favorito
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -1007,6 +1027,16 @@ function App() {
             setComparisonMode(false);
             setSelectedPlayers([]);
           }}
+        />
+      )}
+
+      {/* Share Stats Modal */}
+      {showShareModal && (
+        <ShareModal
+          player={accountInfo}
+          stats={stats}
+          battlePass={battlePass}
+          onClose={() => setShowShareModal(false)}
         />
       )}
     </>
