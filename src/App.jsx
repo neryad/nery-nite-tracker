@@ -4,6 +4,7 @@ import neryTrackerLogo from "./assets/logo.png";
 import viteLogo from "/vite.svg";
 import PlayerComparison from "./PlayerComparison";
 import ShareModal from "./ShareModal";
+import InstallPWA from "./InstallPWA";
 
 import { Button, Input, Card, ProgressBar } from "pixel-retroui";
 function App() {
@@ -259,6 +260,9 @@ function App() {
       <p className="text-lg opacity-70 text-base-content flex items-center justify-center">
         Estadísticas de Fortnite a lo retro
       </p>
+      <div className="flex justify-center mt-4">
+        <InstallPWA />
+      </div>
 
       {/* <div className="container mx-auto px-4 py-8">
         <img
@@ -982,38 +986,6 @@ function App() {
           >
             GitHub
           </a>
-          <a
-            href="https://www.youtube.com/@neryad"
-            target="_blank"
-            className="text-pink-500 hover:text-pink-700"
-          >
-            Youtube
-          </a>
-          <a
-            href="https://github.com/neryad/nery-nite-tracker.git"
-            target="_blank"
-            className="text-pink-500 hover:text-pink-700"
-          >
-            Repo
-          </a>
-        </div>
-        <div className="mt-4">
-          <Button
-            bg="yellow"
-            textColor="black"
-            borderColor="black"
-            shadow="black"
-            className="btn btn-sm"
-            onClick={() => window.open("https://ko-fi.com/neryad", "_blank")}
-          >
-            <span className="mr-2">☕</span>
-            Apoya este proyecto
-          </Button>
-        </div>
-        <div className="mt-2">
-          <p>Versión 0.1.1</p>
-        </div>
-        <div className="mt-2 text-sm text-gray-600">
           <p>Hecho con ❤️ y react por Neryad</p>
         </div>
       </footer>
