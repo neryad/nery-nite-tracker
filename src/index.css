@@ -2,12 +2,57 @@
 @import "pixel-retroui/dist/index.css";
 @import "pixel-retroui/dist/fonts.css";
 
-body {
-  padding: 1rem;
+/* Theme Definitions */
+:root {
+  /* Light Mode (Default) */
+  --primary: #7f2cc8;
+  --secondary: #00a3d9;
+  --accent: #ff7b39;
+  --neutral: #1b1b1b;
+  --base-100: #ffffff;
+  --base-200: #f2f2f5;
+  --base-content: #1f2937;
+  --info: #00b7ff;
+  --success: #41d661;
+  --warning: #ffc947;
+  --error: #ff6b6b;
 }
+
+/* Dark Mode */
+.dark {
+  --primary: #a855f7;
+  --secondary: #38bdf8;
+  --accent: #fb923c;
+  --neutral: #ffffff;
+  --base-100: #111827;
+  --base-200: #1f2937;
+  --base-content: #f3f4f6;
+  --info: #22d3ee;
+  --success: #4ade80;
+  --warning: #facc15;
+  --error: #f87171;
+}
+
+body {
+  padding: 0.5rem;
+  background-color: var(--base-100);
+  color: var(--base-content);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+}
+
 .glass-card {
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-card {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .stat-container {
@@ -33,97 +78,51 @@ body {
 .profile-header {
   background: linear-gradient(
     90deg,
-    rgba(69, 10, 245, 0.8) 0%,
-    rgba(143, 23, 255, 0.8) 100%
+    var(--primary) 0%,
+    var(--secondary) 100%
   );
 }
 
 .text-primary {
-  color: #6e0b75;
+  color: var(--primary);
 }
 .text-secondary {
-  color: #007ebd;
+  color: var(--secondary);
 }
 .text-accent {
-  color: #f8860d;
+  color: var(--accent);
 }
 .text-info {
-  color: #00bcd4;
+  color: var(--info);
 }
 .text-success {
-  color: #4caf50;
+  color: var(--success);
 }
 .favorite-button {
   display: flex;
-  background-color: #fbbd23;
+  background-color: var(--warning);
+  color: #000; /* Ensure readability on warning color */
 }
 
-/* @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap"); */
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Card overrides for dark mode if needed */
+.dark .card {
+  border: 1px solid #374151;
+  background-color: var(--base-200);
+  color: var(--base-content);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.dark .card .card-title {
+  color: var(--base-content);
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Ensure inputs and other elements also adapt */
+.dark .input {
+  background-color: var(--base-100);
+  color: var(--base-content);
+  border-color: #374151;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.dark .modal-box {
+  background-color: var(--base-200);
+  color: var(--base-content);
 }
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */

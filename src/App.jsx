@@ -5,9 +5,11 @@ import viteLogo from "/vite.svg";
 import PlayerComparison from "./PlayerComparison";
 import ShareModal from "./ShareModal";
 import InstallPWA from "./InstallPWA";
+import { ThemeProvider } from "./ThemeContext";
+import ThemeSelector from "./ThemeSelector";
 
 import { Button, Input, Card, ProgressBar } from "pixel-retroui";
-function App() {
+function AppContent() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
   const envFile = import.meta.env.VITE_ENV_FILE;
@@ -242,20 +244,21 @@ function App() {
 
   return (
     <>
-      <div className="text-center mb-10 flex items-center justify-center">
-        <img
-          src={neryTrackerLogo}
-          alt="Logo React"
-          className="h-12 mr-4"
-          style={{ width: "100px", height: "100px" }}
-        />
-        <h1
-          className="text-5xl font-bold mb-2 text-primary-content"
-          style={{ fontSize: "2.5em" }}
-        >
-          <span className="text-primary">Nery</span>
-          <span className="text-accent">Nite</span> Tracker
-        </h1>
+      <div className="flex flex-col items-center justify-center relative mb-6 md:mb-10">
+        <div className="w-full flex justify-end mb-4 md:absolute md:right-0 md:top-0 md:mb-0">
+          <ThemeSelector />
+        </div>
+        <div className="flex items-center flex-col md:flex-row gap-4">
+          <img
+            src={neryTrackerLogo}
+            alt="Logo React"
+            className="h-20 w-20 md:h-24 md:w-24"
+          />
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-content text-center">
+            <span className="text-primary">Nery</span>
+            <span className="text-accent">Nite</span> Tracker
+          </h1>
+        </div>
       </div>
       <p className="text-lg opacity-70 text-base-content flex items-center justify-center">
         Estadísticas de Fortnite a lo retro
@@ -286,16 +289,15 @@ function App() {
       </div> */}
       <Card
         className="card bg-base-100 shadow-xl mb-6"
-        style={{ marginBottom: "2.2rem" }}
       >
-        <div className="card-body p-6">
-          <h2 className="card-title text-xl mb-1">🎮 Buscar Jugador</h2>
+        <div className="card-body p-4 md:p-6">
+          <h2 className="card-title text-lg md:text-xl mb-1">🎮 Buscar Jugador</h2>
           <p className="opacity-60 text-sm mb-4">
             Ingresá un nombre de jugador y consultá sus estadísticas
           </p>
-          <div className="join w-full">
+          <div className="join w-full flex-col sm:flex-row">
             <Input
-              className="input input-bordered join-item text-lg"
+              className="input input-bordered join-item text-lg w-full sm:w-auto flex-grow"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -307,7 +309,7 @@ function App() {
               textColor="black"
               borderColor="black"
               shadow="black"
-              className="btn btn-primary join-item"
+              className="btn btn-primary join-item w-full sm:w-auto mt-2 sm:mt-0"
               onClick={handleSearch}
             >
               Buscar
@@ -1012,6 +1014,14 @@ function App() {
         />
       )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

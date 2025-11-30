@@ -67,12 +67,12 @@ const PlayerComparison = ({ players, onClose }) => {
   const colors = ["#6e0b75", "#00d9ff", "#ff006e", "#ffbe0b"];
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <Card className="w-full max-w-6xl bg-base-100 shadow-2xl my-8">
-        <div className="card-body p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start md:items-center justify-center p-2 md:p-4 overflow-y-auto">
+      <Card className="w-full max-w-6xl bg-base-100 shadow-2xl my-4 md:my-8">
+        <div className="card-body p-3 md:p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-3xl font-bold">
-              ⚔️ Comparación de Jugadores
+            <h2 className="text-xl md:text-3xl font-bold">
+              ⚔️ Comparación
             </h2>
             <Button
               bg="red"
@@ -126,11 +126,12 @@ const PlayerComparison = ({ players, onClose }) => {
           {/* Charts Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Radar Chart */}
-            <Card className="bg-base-200 p-4">
+            <Card className="bg-base-200 p-2 md:p-4">
               <h3 className="font-bold text-lg mb-4 text-center">
                 📊 Comparación General
               </h3>
-              <ResponsiveContainer width="100%" height={300}>
+              <div className="h-[250px] md:h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData}>
                   <PolarGrid stroke="#666" />
                   <PolarAngleAxis dataKey="stat" stroke="#fff" />
@@ -148,14 +149,16 @@ const PlayerComparison = ({ players, onClose }) => {
                   <Legend />
                 </RadarChart>
               </ResponsiveContainer>
+              </div>
             </Card>
 
             {/* Bar Chart */}
-            <Card className="bg-base-200 p-4">
+            <Card className="bg-base-200 p-2 md:p-4">
               <h3 className="font-bold text-lg mb-4 text-center">
                 📈 Estadísticas Detalladas
               </h3>
-              <ResponsiveContainer width="100%" height={300}>
+              <div className="h-[250px] md:h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={barData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#666" />
                   <XAxis dataKey="name" stroke="#fff" />
@@ -177,6 +180,7 @@ const PlayerComparison = ({ players, onClose }) => {
                   ))}
                 </BarChart>
               </ResponsiveContainer>
+              </div>
             </Card>
           </div>
 
@@ -210,9 +214,9 @@ const PlayerComparison = ({ players, onClose }) => {
               );
               return (
                 <div className="inline-block">
-                  <div className="badge badge-lg badge-warning gap-2 p-4">
-                    <span className="text-2xl">🏆</span>
-                    <span className="font-bold">
+                  <div className="badge badge-lg badge-warning gap-2 p-3 md:p-4 h-auto whitespace-normal text-center">
+                    <span className="text-xl md:text-2xl">🏆</span>
+                    <span className="font-bold text-sm md:text-base">
                       {winner.name} lidera con {winner.wins || 0} victorias
                     </span>
                   </div>
