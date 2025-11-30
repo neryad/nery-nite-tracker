@@ -16,13 +16,14 @@ export default defineConfig({
         "favicon.ico",
       ],
       manifest: {
-        name: "Nery Nite Tracker",
-        short_name: "Nery Nite",
-        description: "Aplicación para seguimiento Nery Nite",
-        theme_color: "#ffffff",
-        background_color: "#ffffff",
+        name: "NeryNite Tracker",
+        short_name: "NeryNite",
+        description: "Rastreador de estadísticas de Fortnite con estilo retro",
+        theme_color: "#2a0845",
+        background_color: "#000000",
         display: "standalone",
         start_url: "/",
+        orientation: "portrait",
         icons: [
           {
             src: "/android-launchericon-192-192.png",
